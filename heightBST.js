@@ -1,5 +1,4 @@
-// Write an algorithm to check whether an arbitrary tree is a binary search tree
-
+// Write an algorithm to find the height of a binary search tree
 var BinarySearchTree = function(key, value, parent) {
     this.key = key || null;
     this.value = value || null;
@@ -115,46 +114,11 @@ BinarySearchTree.prototype._findMin = function() {
     return this.left._findMin();
 };
 
-var detectBST = function(tree) {
-    
-    if (tree.left) {
-        if(tree.key < tree.left.key) {
-            return false; 
-        }
-        if  (!detectBST(tree.left)) {
-            return false;
-        };
-        
-    }
-    if(tree.right) {
-        if(tree.key > tree.right.key) {
-            return false; 
-        }
-        if  (!detectBST(tree.right)) {
-            return false;
-        };
-       
-    }
-    return true;       
-};
-
-var leftTree= {
-    key:10,
-    parent: badTree
-};
-
-var badTree= {
-    key:5,
-    left: leftTree,
-    
-};
-
-
-
 var myBST = new BinarySearchTree();
 
 myBST.insert(5,'Surbhi');
 myBST.insert(10,'Ten');
+myBST.insert(11,'eleven');
 myBST.insert(3,'Three');
 myBST.insert(8,'Eight');
 myBST.insert(4,'Four');
@@ -163,21 +127,47 @@ myBST.insert(0,'Zero');
 myBST.insert(7,'Seven');
 myBST.insert(1,'One');
 myBST.insert(6,'Six');
- //console.log(myBST);
 
 
-console.log(detectBST(badTree));
-
-
- 
+//console.log(myBST);
 
 
 
-  // first, if root exists
-  // check if the right is available
-  //   check if the right key is larger than the above key
-  //   if it's null, stop it there
-  // check if the left is available and if it's less than the above key
-  // check if the left's left is available at the one above key and see if it's less
-  // check if the left's right is available and see if it's greater than the above key
+var findLeftHeight = function(tree, leftCounter){
+	
+	if(tree !=null || tree != undefined){
+		 if (tree.left) {
+		    leftCounter++;
+		    return findLeftHeight(tree.left, leftCounter);
+		 }
+		 else {
+		 	return leftCounter;
+		 } 
+	}
+}
 
+var findRightHeight= function(tree, rightCounter){
+	var rightCounter = 0;
+	if(tree != null || tree != undefined){
+		if(tree.right){
+	  		rightCounter++;
+	    	return findRightHeight(tree.right, rightCounter);
+	 	}
+	 	else {
+ 			return  rightCounter;
+ 		}
+	}
+	
+}
+
+var findHeight = function(tree) {
+	leftCounter = findLeftHeight(tree, 0);
+	rightCounter = findRightHeight(tree, 0);
+	if (leftCounter > rightCounter) {
+		return leftCounter;  
+	}
+	return rightCounter;
+}
+
+//console.log(myBST);
+console.log(findHeight(myBST));
