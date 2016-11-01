@@ -1,4 +1,4 @@
-// Write an algorithm to find the height of a binary search tree
+//Write an algorithm to find the third largest value in a binary search tree
 var BinarySearchTree = function(key, value, parent) {
     this.key = key || null;
     this.value = value || null;
@@ -118,7 +118,6 @@ var myBST = new BinarySearchTree();
 
 myBST.insert(5,'Surbhi');
 myBST.insert(10,'Ten');
-myBST.insert(11,'eleven');
 myBST.insert(3,'Three');
 myBST.insert(8,'Eight');
 myBST.insert(4,'Four');
@@ -128,46 +127,6 @@ myBST.insert(7,'Seven');
 myBST.insert(1,'One');
 myBST.insert(6,'Six');
 
-
-//console.log(myBST);
-
+console.log(myBST);
 
 
-var findLeftHeight = function(tree, leftCounter){
-	leftCounter = leftCounter || 0; 
-	if(tree !=null || tree != undefined){
-		 if (tree.left) {
-		    leftCounter++;
-		    return findLeftHeight(tree.left, leftCounter);
-		 }
-		 else {
-		 	return leftCounter;
-		 } 
-	}
-}
-
-var findRightHeight= function(tree, rightCounter){
-	rightCounter= rightCounter || 0;
-	if(tree != null || tree != undefined){
-		if(tree.right){
-	  		rightCounter++;
-	    	return findRightHeight(tree.right, rightCounter);
-	 	}
-	 	else {
- 			return rightCounter;
- 		}
-	}
-	
-}
-
-var findHeight = function(tree) {
-	leftCounter = findLeftHeight(tree);
-	rightCounter = findRightHeight(tree);
-	if (leftCounter > rightCounter) {
-		return leftCounter;  
-	}
-	return rightCounter;
-}
-
-//console.log(myBST);
-console.log(findHeight(myBST));
