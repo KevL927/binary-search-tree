@@ -115,41 +115,20 @@ BinarySearchTree.prototype._findMin = function() {
     return this.left._findMin();
 };
 
-var detectBST = function(tree) {
-    
-    if (tree.left) {
-        if(tree.key < tree.left.key) {
-            return false; 
-        }
-        if  (!detectBST(tree.left)) {
-            return false;
-        };
-        
+BinarySearchTree.prototype.scanner = function(key) {
+    if (this.key == key) {
+        return this.next;
     }
-    if(tree.right) {
-        if(tree.key > tree.right.key) {
-            return false; 
-        }
-        if  (!detectBST(tree.right)) {
-            return false;
-        };
-       
+    else if (key < this.key && this.left) {
+        return this.left.get(key);
     }
-    return true;       
+    else if (key > this.key && this.right) {
+        return this.right.get(key);
+    }
+    else {
+        throw new Error('Key Error');
+    }
 };
-
-var leftTree= {
-    key:10,
-    parent: badTree
-};
-
-var badTree= {
-    key:5,
-    left: leftTree,
-    
-};
-
-
 
 var myBST = new BinarySearchTree();
 
@@ -163,21 +142,23 @@ myBST.insert(0,'Zero');
 myBST.insert(7,'Seven');
 myBST.insert(1,'One');
 myBST.insert(6,'Six');
- //console.log(myBST);
+// console.log(myBST);
+console.log(myBST.scanner(10));
 
 
-console.log(detectBST(badTree));
 
 
- 
 
+function detectBST(tree, root) {
+  if(root < tree.key.left.key) {
 
+  }
 
   // first, if root exists
   // check if the right is available
-  //   check if the right key is larger than the above key
-  //   if it's null, stop it there
+    // check if the right key is larger than the above key
+    // if it's null, stop it there
   // check if the left is available and if it's less than the above key
   // check if the left's left is available at the one above key and see if it's less
   // check if the left's right is available and see if it's greater than the above key
-
+// }

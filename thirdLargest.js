@@ -32,6 +32,21 @@ BinarySearchTree.prototype.insert = function(key, value) {
 };
 
 
+// BinarySearchTree.prototype.get = function(key) {
+//     if (this.key == key) {
+//         return this.value;
+//     }
+//     else if (key < this.key && this.left) {
+//         return this.left.get(key);
+//     }
+//     else if (key > this.key && this.right) {
+//         return this.right.get(key);
+//     }
+//     else {
+//         throw new Error('Key Error');
+//     }
+// };
+
 BinarySearchTree.prototype.get = function(key) {
     if (this.key == key) {
         return this.value;
@@ -43,7 +58,7 @@ BinarySearchTree.prototype.get = function(key) {
         return this.right.get(key);
     }
     else {
-        throw new Error('Key Error');
+        return undefined;
     }
 };
 
@@ -117,16 +132,51 @@ BinarySearchTree.prototype._findMin = function() {
 var myBST = new BinarySearchTree();
 
 myBST.insert(5,'Surbhi');
-myBST.insert(10,'Ten');
-myBST.insert(3,'Three');
 myBST.insert(8,'Eight');
+myBST.insert(7,'Seven');
 myBST.insert(4,'Four');
+myBST.insert(1,'One');
 myBST.insert(2,'Two');
 myBST.insert(0,'Zero');
-myBST.insert(7,'Seven');
-myBST.insert(1,'One');
+myBST.insert(10,'Ten');
 myBST.insert(6,'Six');
+myBST.insert(3,'Three');
+myBST.insert(9,'Nine');
+// console.log(myBST);
 
-console.log(myBST);
+// finds the largest key
+function thirdLargestKey(tree) {
+  if (!tree.right) {
+    return findThirdLargestKey(tree.key);
+  }
+  return thirdLargestKey(tree.right);
+};
 
+// finds the third largest key
+function findThirdLargestKey(key, counter) {
+  key = key - 1,
+  counter = counter || 0;
 
+  if(counter === 1) {
+    return key;
+  }
+  if(myBST.get(key)) {
+    counter++;
+    return findThirdLargestKey(key, counter);
+  }
+  if(myBST.get(key) === undefined) {
+    return findThirdLargestKey(key, counter);
+  }
+};
+
+// console.log(thirdLargestKey(myBST));
+
+function thirdLargestValue(tree) {
+  for (var node = tree; node.right; node = node.right) {}
+
+  return (node.left && node.parent || node.parent.left || node.parent.parent).key;
+}
+
+// console.log(thirdLargestValue(myBST));
+
+// console.log(findLargestKey(myBST));
